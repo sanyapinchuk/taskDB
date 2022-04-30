@@ -125,3 +125,16 @@ FROM Cards
 JOIN Account ON Cards.idAccount = Account.idAccount
 JOIN Banks ON Account.idBank = Banks.idBank
 JOIN Client ON Client.idClient = Account.idClient;
+
+
+--3
+
+SELECT Account.idAccount,
+       idClient,
+       idBank,
+       Account.cash AS 'Баланс акк',
+       idCard,
+       Cards.cash - Account.cash AS Разница
+FROM Account
+JOIN Cards ON Cards.idAccount = Account.idAccount
+WHERE Cards.cash != Account.cash;
