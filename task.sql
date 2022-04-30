@@ -105,3 +105,12 @@ INSERT INTO Account VALUES
 (4,4,400),
 (5,2,440),
 (5,5,100)
+
+
+--tasks
+--1
+
+SELECT nameBank FROM Banks
+JOIN Branch ON Banks.idBank = Branch.idBank
+JOIN TOWER ON Branch.idTower = Tower.idTower
+WHERE nameTower = 'Bobruisk';
