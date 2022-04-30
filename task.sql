@@ -93,7 +93,7 @@ INSERT INTO Client VALUES
 INSERT INTO Cards VALUES
 ('4488456798233476',400,1),
 ('4488982361643285',220,4),
-('4488456798233476',580,2),
+('4488456798233476',580,3),
 ('4488456798233474',0,2),
 ('4488456798233412',150,5);
 
@@ -110,7 +110,18 @@ INSERT INTO Account VALUES
 --tasks
 --1
 
-SELECT nameBank FROM Banks
+SELECT nameBank
+FROM Banks
 JOIN Branch ON Banks.idBank = Branch.idBank
 JOIN TOWER ON Branch.idTower = Tower.idTower
 WHERE nameTower = 'Bobruisk';
+
+--2
+SELECT Client.firstNameClient,
+       Client.secondNameClient,
+       Cards.cash,
+       Banks.nameBank
+FROM Cards
+JOIN Account ON Cards.idAccount = Account.idAccount
+JOIN Banks ON Account.idBank = Banks.idBank
+JOIN Client ON Client.idClient = Account.idClient;
