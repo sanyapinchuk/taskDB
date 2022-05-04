@@ -152,12 +152,18 @@ JOIN Client ON SocStatus.idStatus = Client.idStatus
 JOIN Account ON Account.idClient = Client.idClient
 JOIN Cards ON Account.idAccount = Cards.idAccount
 GROUP BY nameStatus;
-/*
-SELECT DISTINCT Sn.nameStatus,COUNT(Sn.nameStatus) FROM SocStatus
-JOIN Client ON SocStatus.idStatus = Client.idStatus
-JOIN Account ON Account.idClient = Client.idClient
-JOIN Cards ON Account.idAccount = Cards.idAccount
-JOIN (SELECT DISTINCT SocStatus.nameStatus FROM SocStatus) AS Sn ON Sn.nameStatus= SocStatus.nameStatus;*/
+
+SELECT nameStatus, T.cnt AS 'Кол-во карт' 
+FROM SocStatus
+  OUTER APPLY
+    (
+      SELECT COUNT(*) cnt 
+      FROM Client
+        JOIN Account ON Account.idClient = Client.idClient
+          JOIN Cards ON Account.idAccount = Cards.idAccount
+      WHERE Client.idStatus = SocStatus.idStatus
+    ) AS T
+	WHERE T.cnt != 0
 
 --5
 GO
